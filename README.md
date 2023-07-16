@@ -107,7 +107,7 @@ ILIKE operatörü LIKE operatörünün case - insensitive versiyonudur.
 # SQL Eğitim Patika
 
 > #### Bu repo'da [Patika](https://academy.patika.dev/) SQL eğitiminde yapmış olduğum bütün ödevler bulunmaktadır.
->örnek veritabanı [dvdrental]()
+>Örnek veritabanı [dvdrental](https://github.com/umithavare/Patika-SQL-Examples/blob/main/dvdrental.zip) linkinde bulunmaktadir. 
 
 <br>
 
