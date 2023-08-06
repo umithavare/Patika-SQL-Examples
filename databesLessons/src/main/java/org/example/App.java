@@ -31,17 +31,19 @@ public class App
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
             System.out.println("baglanti basarili");
 
-            /* Statement st = connection.createStatement();
+             Statement st = connection.createStatement();
             st.executeUpdate(stSql);
             System.out.println("1007 silindi ");
 
-             */
+
 
             PreparedStatement prst = connection.prepareStatement(prSql);
             prst.setInt(1,1003);
             System.out.println("1003 silindi");
             prst.executeUpdate();
             prst.close();
+            st.close();
+            connection.close();
 
 
 
