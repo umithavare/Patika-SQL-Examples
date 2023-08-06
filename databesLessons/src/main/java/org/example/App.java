@@ -1,4 +1,4 @@
-package org.example;
+package databesLessons.src.main.java.org.example;
 
 import java.sql.*;
 
@@ -8,8 +8,7 @@ public class App
     public static final String DB_URL = "jdbc:postgresql://localhost/dvdrental";
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "admin159";
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws SQLException {
         Connection connection = null;
        // String sql = "SELECT * FROM film";
 
@@ -22,16 +21,50 @@ public class App
         burada kayıt guncellemeyı iki yöntemle yaptık
          */
 
-
-        String stSql = "Delete FROM film WHERE film_id = 1007";
+        /* String stSql = "Delete FROM film WHERE film_id = 1007";
         String prSql = "Delete FROM film WHERE film_id = ?";
+
+         */
+
+
+
 
 
         try{
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            connection.setAutoCommit(false);
             System.out.println("baglanti basarili");
 
-             Statement st = connection.createStatement();
+            PreparedStatement prst = connection.prepareStatement("INSERT INTO film (title,release_year,language_id) VALUES (?,?,?)");
+            prst.setString(1,"hahaha");
+            prst.setInt(2,2003);
+            prst.setInt(3,1);
+            prst.executeUpdate();
+
+            /*if (true){
+                throw new SQLException();
+            }
+
+            exeception geldiginide her ikisini de veritabanina eklemiyor
+
+             */
+            prst.setString(1,"haha222");
+            prst.setInt(2,2004);
+            prst.setInt(3,1);
+            prst.executeUpdate();
+
+            connection.commit();
+            prst.close();
+            connection.close();
+
+
+
+
+
+
+
+
+             /* Statement st = connection.createStatement();
             st.executeUpdate(stSql);
             System.out.println("1007 silindi ");
 
@@ -45,8 +78,7 @@ public class App
             st.close();
             connection.close();
 
-
-
+              */
 
 
             /* Statement st = connection.createStatement();
@@ -62,7 +94,6 @@ public class App
             prst.close();
             burada da prestatement olusturarak guncelleme yaptık
              */
-
 
 
            /*
@@ -83,10 +114,6 @@ public class App
             // değer vermemizin sebebi first ve last metodunu kullanmak
 
 
-
-
-
-
            /* ResultSet data = st.executeQuery(sql);
 
             data.next();
@@ -104,6 +131,9 @@ public class App
 
         }
         catch (SQLException e){
+            if (connection != null){
+                connection.rollback();
+            }
             System.out.println(e.getMessage());
         }
 
